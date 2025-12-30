@@ -1,17 +1,40 @@
-
-import os
 import time
 import requests
 import feedparser
 import hashlib
 
-TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
-TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
+TELEGRAM_TOKEN = "8488282143:AAEmofU0H6WvQCyxDusBs8uA6AL_boL8u4w"
+TELEGRAM_CHAT_ID = "7296034489"
 
-SUBREDDITS = [s.strip() for s in os.getenv("SUBREDDITS", "").split(",") if s.strip()]
-KEYWORDS = [k.strip().lower() for k in os.getenv("KEYWORDS", "").split(",") if k.strip()]
+# List of subreddits to monitor
+SUBREDDITS = [
+    "CryptoCurrency", "Bitcoin", "ethereum", "binance", "CryptoMarkets",
+    "CoinBase", "Kraken", "CoinbaseSupport", "kucoin", "Gemini",
+    "Metamask", "ledgerwallet", "Trezor", "trustwallet", "cardano",
+    "solana", "dogecoin", "Ripple", "polkadot", "UniSwap"
+]
 
-CHECK_INTERVAL = int(os.getenv("CHECK_INTERVAL", "120"))
+# List of keywords to trigger alerts
+KEYWORDS = [
+    "problem", "issue", "error", "bug", "glitch", "crash", "frozen", "not working",
+    "broken", "malfunction", "stuck", "pending", "failed", "lost", "missing",
+    "disappeared", "vanished", "not showing", "delayed", "slow", "help", "support",
+    "customer service", "scammed", "hacked", "stolen", "fraud", "phishing",
+    "compromised", "exploited", "locked", "suspended", "banned", "verification",
+    "kyc", "login", "password", "2fa", "authentication", "access denied",
+    "withdrawal", "deposit", "fee", "gas fee", "transaction fee", "high fees",
+    "cannot withdraw", "cannot deposit", "balance", "funds", "urgent", "emergency",
+    "frustrated", "angry", "desperate", "panicking", "stressed", "worried", "anxious",
+    "helpless", "wallet", "seed phrase", "private key", "network congestion",
+    "smart contract", "slippage", "liquidity", "rug pull", "api", "connection error",
+    "maintenance", "downtime", "outage", "server error", "trading halted", "market order",
+    "limit order", "stop loss", "leverage", "margin call", "security breach", "hack",
+    "vulnerability", "exploit", "drain", "unauthorized", "suspicious", "malicious",
+    "attack", "compromised", "lawsuit", "legal", "regulation", "compliance", "freeze",
+    "seizure", "investigation", "subpoena", "court", "attorney"
+]
+
+CHECK_INTERVAL = 120
 USER_AGENT = "reddit-rss-telegram-bot"
 
 if not TELEGRAM_TOKEN or not TELEGRAM_CHAT_ID:
